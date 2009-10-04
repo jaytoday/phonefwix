@@ -6,7 +6,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.api import urlfetch
 
-BASE_URL = "http://weatherbyphone.appspot.com/"
+BASE_URL = 'http://' + os.environ['HTTP_HOST'] + "/"
 WEATHER_API_URL = "http://weather.yahooapis.com/forecastrss?p="
 WEATHER_API_NS = "http://xml.weather.yahoo.com/ns/rss/1.0"
 
@@ -14,10 +14,10 @@ WEATHER_API_NS = "http://xml.weather.yahoo.com/ns/rss/1.0"
 # http://api.fwix.com/general/geos.format
 FWIX_RECENT_URL = 'http://api.fwix.com/fetch/recent.json?'
 
-class WeatherPage(webapp.RequestHandler):
+class NewsPage(webapp.RequestHandler):
     """
-    Accepts input digits from the caller, fetches the weather from an
-    external site, and reads back the weather to the caller
+    Accepts input digits from the caller, fetches the news from an
+    external site, and reads back the news to the caller
     """
     def get(self):
         self.post()
@@ -31,8 +31,10 @@ class WeatherPage(webapp.RequestHandler):
     
     def _fetch(self, zipcode):
         url = FWIX_RECENT_URL
+        import random
+        geo_id = random.sample(range(50),1)[0]
         args = {
-        'geo_id' : 40
+        'geo_id' : geo_id
         }
         import urllib
         args_enc = args_enc = urllib.urlencode(args)
@@ -54,17 +56,14 @@ class WeatherPage(webapp.RequestHandler):
             'temp': conditions.getAttribute('temp')
         }
         
-    def _parsejson(self, json):
+    def _parsefwixjson(self, json):
         from django.utils import simplejson
+        from encoding import htmlencode
         obj = simplejson.loads(json)
-        print ""
-        print obj
-        return {
-            'location': '%s, %s' % (location.getAttribute('city'),
-                location.getAttribute('region')),
-            'conditions': conditions.getAttribute('text'),
-            'temp': conditions.getAttribute('temp')
-        }
+        for item in obj['result']:
+         item['title'] = htmlencode(item['title'])
+         # same for summary...
+        return obj
         
     # @start snippet
     def post(self):
@@ -76,14 +75,14 @@ class WeatherPage(webapp.RequestHandler):
         # strip off extra digits and keys from the Digits we got back
         zipcode = zipcode.replace('#', '').replace('*', '')[:5]
         
-        fwixxml = self._fetch(zipcode)
-        if not fwixxml:
+        try:
+          fwixxml = self._fetch(zipcode)
+        except:
             self._error("Error fetching fwix data. Good Bye.")
             return
-        
         try:
-            json_response(self, 'fwix.xml', self._parsejson(fwixxml))
-        except ValueError:
+            json_response(self, 'fwix.xml', self._parsefwixjson(fwixxml))
+        except:
             self._error("Error parsing fwixdata. Good Bye.")
         # @end snippet
 
@@ -127,7 +126,7 @@ def main():
 	# @start snippet
     application = webapp.WSGIApplication([ \
         ('/', GatherPage),
-        ('/weather', WeatherPage)],
+        ('/news', NewsPage)],
         debug=True)
     # @end snippet
     wsgiref.handlers.CGIHandler().run(application)

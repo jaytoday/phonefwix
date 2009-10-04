@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say>It is currently {{ temp }} degrees fahrenheit and {{ conditions }}
-        in {{ location }}.</Say>
+    <Say>
+    {% for item in result %}
+    {# item.summary #}
+     {{ item.title }}
+  {% endfor %}
+        </Say>
 </Response>
