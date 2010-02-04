@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
+<Say>{{ news_type_description }} News For {{ place }} </Say> <Pause></Pause>
+  {% for item in results %}
+  {#  <Say>{{ item.title }} </Say> <Pause></Pause> #}
     <Say>
-    {% for item in result %}
-    {# item.summary #}
-     {{ item.title }}
+    {{ item.summary }}
+    </Say>
+    <Pause></Pause>
   {% endfor %}
-        </Say>
+    <Redirect method="GET">
+        {{ postprefix }}/phone/{{ news_type }}
+    </Redirect>
 </Response>

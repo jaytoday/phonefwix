@@ -1,0 +1,5 @@
+cron:
+
+- description: Geo ID refresh
+  url: /update_geoids
+  schedule: every day 00:00

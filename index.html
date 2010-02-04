@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="/static/stylesheets/main.css" />
+<style>
+#fwix_logo{
+  font-size:1.5em; border: 1px solid #FF3600;
+}
+
+.news_type, #fwix_logo{
+font-size:1.4em;
+color: white; background: #FF3600; padding: 1px 5px; -moz-border-radius:5px;
+}
+
+#fwix_logo:hover, .news_type:hover{
+  color:#FF3600;
+  background:white;
+  cursor:pointer;
+}
+
+</style>
+
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+
+<title>PhoneFwix</title>
+
+</head>
+
+<body>
+
+<div id="masthead"></div>
+
+<div id="main">
+
+<div id="contain">     
+<div id="content">
+<div class="title"> <h1>
+<a href="/">{% block title %} 
+
+{% endblock title %} </a>
+
+
+</h1></div> 
+<div id="meta"> 
+
+
+
+{% block link %}
+
+{% endblock link %}
+
+
+
+<div id="panels" class="autopagerize_page_element">
+
+
+
+
+
+<div class="panel" style="padding-bottom:0px;">
+
+<div class="panelop"> <div class="pheadfill style4">&nbsp;</div></div>
+
+<div class="panelcontent" > <div class="thecontent" style="height:420px;">
+<div class="innercontent">
+
+
+
+
+<div class="main">
+
+{% block main %}
+
+<h2 style="margin-left:135px; line-height:1.2em;">
+<a target="_blank" href="http://www.fwix.com">
+<span id="fwix_logo">Fwix</span>
+</a> is a local newswire that stays up to date in real time. 
+</h2>
+
+
+<h2 style="margin-left:135px; line-height:1.4em;">
+<a href="http://phonefwix.appspot.com">
+<span id="fwix_logo">PhoneFwix</span>
+</a> provides your neighborhood's latest news through a simple phone service.
+</h2>
+
+<h2 style="font-size: 45px; margin-top: -10px; line-height: 50px; width: 600px; margin-left: 95px;">
+<i style="font-size:26px;">-- How To Use PhoneFwix --</i>
+<br/><i>1.</i>Call (415) 483-1286 
+<div style="height:10px;"></div>
+<i>2.</i> Enter Your ZipCode
+<div style="margin-top: -5px; font-size:11px;">(Or press <span style="font-size:1.5em;">#</span> to switch between <span class="news_type">Breaking News</span> &amp; <span class="news_type">Most Popular News</span> options)</div>
+
+</h2>
+
+<div style="height:40px;"></div>
+{% endblock main %}
+
+</div>
+
+
+</div> </div></div></div></div>
+
+<div id="aboutfooter">
+
+<div class="description"  style="margin-top:30px">
+<a target="_blank" href="http://www.fwix.com">
+<img src="/static/stylesheets/fwix.png" style="margin-left: 55px;"/>
+</a>
+</div>
+<div class="description" style="margin-top:10px">
+<a target="_blank" href="http://www.twilio.com">
+<img src="/static/stylesheets/twilio.png" style="margin-left: 35px;"/>
+</a>
+</div>
+<div class="description" style="margin-top:17px;">
+<a target="_blank" href="http://appengine.google.com">
+<img src="/static/stylesheets/appengine-silver-120x30.gif" style="margin-left: 87px;"/>
+</a>
+</div>
+<div class="description" style="border: medium none ; margin-top: 10px; margin-left: 225px; text-align: center; font-size: 13px;">
+built by <a target="_blank" href="http://www.twitter.com/jamtoday">@jamtoday</a>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+{% block body %}
+{% endblock body %}
+
+
+</body>
+</html>

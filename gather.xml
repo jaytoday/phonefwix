@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Gather method="POST" numDigits="5" action="{{ postprefix }}news">
-        <Play>greeting.wav</Play>
-        <Say>Please enter your 5 digit zipcode to hear recent news from Fwix.</Say>
+    <Gather method="POST" timeout="10" numDigits="5" finishOnKey="#" action="{{ postprefix }}/phone/{{ news_type }}">
+       {% if not is_news_type %} <Play>{{ postprefix }}/greeting.wav</Play> {% endif %}
+        <Say voice="woman">{% if not is_news_type %}Welcome to Phone Fwix.{% endif %} To hear {{ news_type_description }} local news from Fwix dot com, enter your 5 digit zipcode.
+        Or press the pound key now if you'd like to hear {{ other_news_type_description }} local news.
+        </Say>
     </Gather>
+    <Redirect method="GET">
+        {{ postprefix }}/phone/{{ news_type }}
+    </Redirect>
 </Response>
